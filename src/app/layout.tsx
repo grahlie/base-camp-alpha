@@ -2,6 +2,13 @@ import "~/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
+import {
+    ClerkProvider,
+    SignInButton,
+    SignedIn,
+    SignedOut,
+    UserButton
+} from '@clerk/nextjs'
 
 export const metadata: Metadata = {
   title: "Base Camp Alpha",
@@ -12,9 +19,19 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  return (
-    <html lang="en" className={`${GeistSans.variable}`}>
-      <body>{children}</body>
-    </html>
-  );
+    return (
+        <ClerkProvider>
+            <html lang="en" className={`${GeistSans.variable} bg-gray-50 dark:bg-gray-900`}>
+                <body>
+                    <SignedOut>
+                        <SignInButton />
+                    </SignedOut>
+                    <SignedIn>
+                        <UserButton />
+                    </SignedIn>
+                    {children}
+                </body>
+            </html>
+        </ClerkProvider>
+    )
 }
