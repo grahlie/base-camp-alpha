@@ -8,7 +8,8 @@ import {
     SignedIn,
     SignedOut,
     UserButton
-} from '@clerk/nextjs'
+} from '@clerk/nextjs';
+import { CSPostHogProvider } from './_analytics/provider';
 
 export const metadata: Metadata = {
   title: "Base Camp Alpha",
@@ -21,17 +22,19 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
     return (
         <ClerkProvider>
-            <html lang="en" className={`${GeistSans.variable} bg-gray-50 dark:bg-gray-900`}>
-                <body>
-                    <SignedOut>
-                        <SignInButton />
-                    </SignedOut>
-                    <SignedIn>
-                        <UserButton />
-                    </SignedIn>
-                    {children}
-                </body>
-            </html>
+            <CSPostHogProvider>
+                <html lang="en" className={`${GeistSans.variable} bg-gray-50 dark:bg-gray-900`}>
+                    <body>
+                        <SignedOut>
+                            <SignInButton />
+                        </SignedOut>
+                        <SignedIn>
+                            <UserButton />
+                        </SignedIn>
+                        {children}
+                    </body>
+                </html>
+            </CSPostHogProvider>
         </ClerkProvider>
     )
 }
