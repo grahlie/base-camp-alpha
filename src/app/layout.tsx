@@ -4,12 +4,10 @@ import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import {
     ClerkProvider,
-    SignInButton,
     SignedIn,
-    SignedOut,
-    UserButton
 } from '@clerk/nextjs';
 import { CSPostHogProvider } from './_analytics/provider';
+import Navigation from "./_components/navigation";
 
 export const metadata: Metadata = {
   title: "Base Camp Alpha",
@@ -23,13 +21,10 @@ export default function RootLayout({
     return (
         <ClerkProvider>
             <CSPostHogProvider>
-                <html lang="en" className={`${GeistSans.variable} bg-gray-50 dark:bg-gray-900`}>
+                <html lang="en" className={`${GeistSans.variable}`}>
                     <body>
-                        <SignedOut>
-                            <SignInButton />
-                        </SignedOut>
                         <SignedIn>
-                            <UserButton />
+                            <Navigation />
                         </SignedIn>
                         {children}
                     </body>
